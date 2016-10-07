@@ -4,6 +4,9 @@ require "przelewy24_payment/przelewy24_payment_controller"
 
 module Przelewy24Payment
 
+  mattr_accessor :configs
+  @@configs = {}
+
   mattr_accessor :merchant_id
   @@merchant_id = ''
 
@@ -48,6 +51,11 @@ module Przelewy24Payment
 
   def self.setup
     yield self
+    self.set_config
+  end
+
+  def self.set_config(config = :default)
+    self.configs[config].each { |k,v| send("#{k}=", v) }
   end
 
   def self.check_ip(ip)
