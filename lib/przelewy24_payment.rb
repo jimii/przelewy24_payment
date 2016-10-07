@@ -55,7 +55,7 @@ module Przelewy24Payment
   end
 
   def self.set_config(config = :default)
-    self.configs[config].each { |k,v| send("#{k}=", v) }
+    self.configs[config].each { |k,v| send("#{k}=", v) } if self.configs[config]
   end
 
   def self.check_ip(ip)
